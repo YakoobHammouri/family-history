@@ -1,0 +1,61 @@
+{
+  "name": "family-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "start": "NODE_ENV=production node server/server.js",
+    "project-setup": "npm install && cd client && npm install",
+    "heroku-postbuild": "cd client && npm install && heroku-postbuild",
+    "server": "nodemon server/server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YakoobHammouri/family-history"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YakoobHammouri/family-history/issues"
+  },
+  "homepage": "https://github.com/YakoobHammouri/family-history#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^9.2.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-config-developit": "^1.2.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.19.2",
+    "bcrypt": "^4.0.1",
+    "concurrently": "^5.1.0",
+    "cookie": "^0.4.1",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemailer": "^6.4.8",
+    "pg": "^7.18.2",
+    "randomatic": "^3.1.1",
+    "sharp": "^0.26.0",
+    "uuid": "^7.0.2",
+    "xregexp": "^4.3.0"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-developit"
+  }
+}
