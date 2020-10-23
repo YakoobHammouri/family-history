@@ -7,7 +7,7 @@
     "lint": "eslint . --fix",
     "start": "NODE_ENV=production node server/server.js",
     "project-setup": "npm install && cd client && npm install",
-    "heroku-postbuild": "cd client && npm install && heroku-postbuild",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "server": "nodemon server/server.js",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
