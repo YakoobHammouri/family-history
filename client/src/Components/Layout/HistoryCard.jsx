@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     margin: 24,
-    // backgroundColor: 'rgb(247, 249, 250)',
+    // flex-direction: theme.breakpoints;
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column-reverse',
+    },
   },
   details: {
     display: 'flex',
@@ -38,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 35,
     paddingBottom: 20,
     paddingTop: 20,
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+      paddingLeft: 0,
+    },
   },
   playIcon: {
     height: 38,
@@ -110,7 +117,7 @@ export default function HistoryCard({
               </Grid>
             </Grid>
           </Typography>
-          <Typography className={classes.marginInput}>
+          <Typography component="div" className={classes.marginInput}>
             <TextField
               label="العمر"
               value={historyData.age}

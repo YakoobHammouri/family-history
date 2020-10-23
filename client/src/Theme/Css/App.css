@@ -1,3 +1,7 @@
 .swal-text {
   text-align: center;
 }
+
+.MuiDialog-root {
+  left: 63% !important;
+}

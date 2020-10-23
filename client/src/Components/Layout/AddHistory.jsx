@@ -23,6 +23,7 @@ import {
   CloudUpload,
   Delete,
   Edit,
+  ArrowBack,
 } from '@material-ui/icons';
 
 import {
@@ -49,11 +50,17 @@ const useStyles = (theme) => ({
   right: { 'text-align': 'right' },
   content: {
     padding: '33px',
-    width: '100%',
-    minWidth: 290,
-    maxWidth: 390,
+    width: '98%',
+    // minWidth: 290,
+    // maxWidth: 390,
   },
   fullWidth: { width: '100%' },
+
+  imaegBox: {
+    width: 365,
+    height: 400,
+    [theme.breakpoints.down('sm')]: { width: 250, height: 270 },
+  },
 });
 
 // registerLocale('ru', ru);
@@ -338,8 +345,6 @@ class AddHistory extends Component {
         data: { public_id: this.state.public_id },
       })
       .then((res) => {
-        console.log('res : ', res);
-
         this.setState({
           isLoading: false,
           displayBlock: true,
@@ -444,12 +449,17 @@ class AddHistory extends Component {
                     </Grid>
                   </Grid>
 
-                  <Grid container xs={12} alignItems="flex-end">
+                  <Grid container item xs={12} alignItems="flex-end">
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ar}>
                       <Grid item xs={12}>
                         <DatePicker
-                          // locale={ar}
-                          variant="inline"
+                          clearable="true"
+                          autoOk
+                          disableFuture
+                          variant="dialog"
+                          cancelLabel={'الغاء'}
+                          okLabel={'تم'}
+                          clearLabel={'مسح'}
                           color="secondary"
                           margin="normal"
                           id="birthday"
@@ -459,9 +469,6 @@ class AddHistory extends Component {
                           animateYearScrolling={true}
                           value={birthday.value}
                           onChange={this.handleBirthDayChange}
-                          KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                          }}
                           openTo="year"
                           inputVariant="outlined"
                           className={classes.fullWidth}
@@ -470,7 +477,13 @@ class AddHistory extends Component {
                       </Grid>
                       <Grid item xs={12}>
                         <DatePicker
-                          variant="inline"
+                          clearable="true"
+                          autoOk
+                          disableFuture
+                          cancelLabel={'الغاء'}
+                          okLabel={'تم'}
+                          clearLabel={'مسح'}
+                          variant="dialog"
                           color="secondary"
                           margin="normal"
                           id="dateDeath"
@@ -481,9 +494,6 @@ class AddHistory extends Component {
                           value={dateDeath.value}
                           onChange={this.handleDateDeathChange}
                           maxDate={new Date()}
-                          KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                          }}
                           openTo="year"
                           inputVariant="outlined"
                           className={classes.fullWidth}
@@ -513,7 +523,13 @@ class AddHistory extends Component {
                     />
                   </Grid>
 
-                  <Grid container xs={12} spacing={1} alignItems="flex-end">
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    spacing={1}
+                    alignItems="flex-end"
+                  >
                     <Grid container item xs={12} justify="center">
                       <input
                         accept="image/*"
@@ -521,7 +537,7 @@ class AddHistory extends Component {
                         multiple
                         type="file"
                         style={{ display: 'none' }}
-                        value={selectedImage}
+                        value={selectedImage ? selectedImage : ''}
                         onChange={this.handleUploadImageSubmit}
                         accept="image/*"
                       />
@@ -565,8 +581,8 @@ class AddHistory extends Component {
                         </FormHelperText>
                       </FormControl>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Paper style={{ width: 365, height: 400 }} elevation={3}>
+                    <Grid container justify="center" item xs={12}>
+                      <Paper className={classes.imaegBox} elevation={3}>
                         <img
                           style={{ width: '100%', height: '100%' }}
                           src={profileImageUrl}
@@ -606,6 +622,24 @@ class AddHistory extends Component {
                         </Box>
                       </Grid>
                     )}
+
+                    <Grid item xs={12}>
+                      <Box classes={{ root: classes.root }} m={4}>
+                        <Button
+                          size="medium"
+                          color="primary"
+                          variant="contained"
+                          onClick={() => {
+                            if (closeDrawer) {
+                              closeDrawer(false);
+                            }
+                          }}
+                          endIcon={<ArrowBack />}
+                        >
+                          اغلاق
+                        </Button>
+                      </Box>
+                    </Grid>
                   </Grid>
                 </form>
               </Grid>

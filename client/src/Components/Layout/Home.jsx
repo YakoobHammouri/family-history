@@ -22,7 +22,7 @@ import swal from 'sweetalert';
 import { tr } from 'date-fns/locale';
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '40%',
+    // width: '40%',
   },
   margin: {
     margin: theme.spacing(1),
@@ -33,7 +33,7 @@ export default function Home() {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isEdit, SetIsEdit] = React.useState(false);
   const [editHistoryData, SetEditHistoryData] = React.useState(null);
 
@@ -60,13 +60,12 @@ export default function Home() {
   }, []);
 
   const getAllHistory = () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     axios
       .get('/api/getAllHistory')
       .then((res) => {
         const resdata = res.data.data.allHistory;
         setAllHistory(resdata);
-        console.log('history data : ', resdata);
       })
       .catch((err) => {
         console.log('Error in get All History : ', err);
@@ -135,9 +134,23 @@ export default function Home() {
 
   return (
     <>
-      <Grid container item justify="center" xs={12} spacing={2}>
+      <Grid
+        container
+        item
+        justify="center"
+        xs={12}
+        spacing={2}
+        style={{ marginTop: 24 }}
+      >
         <LoaderProgress isLoading={isLoading} />
-        <Grid item xs={2} style={{ marginTop: 16 }}>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={2}
+          // style={{ marginTop: 16 }}
+          justify="center"
+        >
           <Button
             variant="outlined"
             color="primary"
@@ -148,7 +161,7 @@ export default function Home() {
             اضافة
           </Button>
         </Grid>
-        <Grid item xs={8}>
+        <Grid container item xs={12} sm={8} justify="center">
           <Grid item xs={12}>
             <FormControl fullWidth className={classes.margin} variant="filled">
               <InputLabel htmlFor="filled-adornment-amount">بحث</InputLabel>
@@ -212,7 +225,6 @@ export default function Home() {
         {
           <AddHistory
             updateAllHistory={() => {
-              console.log('set Reload ');
               getAllHistory();
             }}
             editHistoryData={editHistoryData}
