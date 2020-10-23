@@ -20,7 +20,7 @@ module.exports = (req, res) => {
       .json(
         InternalErrorMessage(
           null,
-          'Sorry Some Error Happened at change password please try again later',
+          'لقد حدث خطا اثناء اضافة البيانات الرجاء المحاولة مرة اخرى',
         ),
       );
   }
@@ -45,12 +45,17 @@ module.exports = (req, res) => {
       res.cookie('AuthToken', auth);
       return res
         .status(200)
-        .json(successMessage(null, 'The Password changed successfully'));
+        .json(successMessage(null, 'تم تحديث كلمة المرور بنجاح'));
     })
     .catch((err) => {
       console.log('error in controlleer : ', err);
       return res
         .status(501)
-        .json(InternalErrorMessage(null, 'internal error with the server'));
+        .json(
+          InternalErrorMessage(
+            null,
+            'لقد حدث خطا اثناء اضافة البيانات الرجاء المحاولة مرة اخرى',
+          ),
+        );
     });
 };

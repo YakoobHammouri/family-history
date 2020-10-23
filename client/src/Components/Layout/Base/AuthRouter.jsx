@@ -16,7 +16,7 @@ export default (AuthComponent, role) => {
         })
         .catch((err) => {
           if (err.response && err.response.data) {
-            swal('Error', err.response.data.messag, 'error');
+            // swal('Error', err.response.data.messag, 'error');
           }
 
           this.setState({ isLoading: false, isAuthenticated: false });

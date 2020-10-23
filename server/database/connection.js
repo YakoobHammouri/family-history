@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-
+process.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 // require('env2')('./config.env');
 
 require('dotenv').config();

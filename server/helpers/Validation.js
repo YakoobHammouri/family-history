@@ -141,6 +141,78 @@ const newmemberValidation = (data) => {
 
   return schema.validate(data);
 };
+
+// name,
+// birthday,
+// dateDeath,
+// profileImageUrl,
+// public_id,
+// age
+
+const newHistoryValidation = (data) => {
+  const schema = joi.object({
+    name: joi
+      .string()
+      .min(3)
+      .required(),
+
+    birthday: joi
+      .date()
+      .optional()
+      .allow(null),
+    dateDeath: joi
+      .date()
+      .optional()
+      .allow(null),
+
+    profileImageUrl: joi
+      .string()
+      .optional()
+      .allow(null),
+
+    public_id: joi
+      .string()
+      .optional()
+      .allow(null),
+
+    age: joi.number().optional(),
+  });
+
+  return schema.validate(data);
+};
+
+const editHistoryValidation = (data) => {
+  const schema = joi.object({
+    name: joi
+      .string()
+      .min(3)
+      .required(),
+    gid: joi.string().required(),
+    birthday: joi
+      .date()
+      .optional()
+      .allow(null),
+    dateDeath: joi
+      .date()
+      .optional()
+      .allow(null),
+
+    profileImageUrl: joi
+      .string()
+      .optional()
+      .allow(null),
+
+    public_id: joi
+      .string()
+      .optional()
+      .allow(null),
+
+    age: joi.number().optional(),
+  });
+
+  return schema.validate(data);
+};
+
 module.exports = {
   registrationValidation,
   logInValidation,
@@ -149,4 +221,6 @@ module.exports = {
   newmemberValidation,
   changePasswordValidation,
   updateProfileValidation,
+  newHistoryValidation,
+  editHistoryValidation,
 };

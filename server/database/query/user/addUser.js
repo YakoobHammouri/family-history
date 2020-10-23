@@ -2,29 +2,15 @@ const bcrypt = require('bcrypt');
 
 const connection = require('../../connection');
 
-const { ROLE } = require('../../../helpers/Constants');
-
-module.exports = async (userDetails, gid) => {
-  const { name, phone, email, password, birthDate } = userDetails;
-  const role = !userDetails.role ? ROLE.USER : userDetails.role;
+module.exports = async (userDetails) => {
+  const { name, phone, email, password } = userDetails;
 
   try {
     const passwordHash = await bcrypt.hash(password, 10);
     const sql = {
       text:
-        'INSERT INTO USERS  (gid, user_name, phone, birth_date, email, university, address, role, profession, password) VALUES ($1, $2, $3, $4,$5,$6,$7,$8,$9,$10)',
-      values: [
-        gid,
-        name,
-        phone,
-        birthDate,
-        email.toLowerCase(),
-        'Unknown',
-        'Unknown',
-        role,
-        'Unknown',
-        passwordHash,
-      ],
+        'INSERT INTO USERS  (user_name,phone,email,password) VALUES ($1, $2, $3, $4)',
+      values: [name, phone, email.toLowerCase(), passwordHash],
     };
     return connection.query(sql.text, sql.values);
   } catch (error) {

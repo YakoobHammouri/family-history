@@ -44,8 +44,8 @@ class BurgerMenu extends React.Component {
     >
       <List>
         {menu.map((e, index) => (
-          <div>
-            <ListItem key={index} button={true}>
+          <div key={index}>
+            <ListItem button={true}>
               <Link className={classes.link} to={e.to}>
                 <Grid container>
                   <ListItemIcon className={classes.iconStyle}>
@@ -74,16 +74,16 @@ class BurgerMenu extends React.Component {
           color="secondary"
           aria-label="menu"
           edge="end"
-          onClick={this.toggleDrawer('right', true)}
+          onClick={this.toggleDrawer('left', true)}
         >
           <MenuIcon classes={{ root: classes.root }} />
         </IconButton>
         <Drawer
-          anchor={'right'}
-          open={this.state['right']}
-          onClose={this.toggleDrawer('right', false)}
+          anchor={'left'}
+          open={this.state['left']}
+          onClose={this.toggleDrawer('left', false)}
         >
-          {this.list('right', classes, menu)}
+          {this.list('left', classes, menu)}
         </Drawer>
       </React.Fragment>
     );

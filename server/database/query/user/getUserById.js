@@ -5,5 +5,6 @@ module.exports = (id) => {
     text: 'SELECT * FROM users where gid = $1;',
     values: [id],
   };
+
   return connection.query(sql.text, sql.values);
 };

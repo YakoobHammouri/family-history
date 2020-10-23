@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
           .json(
             FailedMessage(
               '',
-              'the new Password should not be equal Current Password',
+              'كلمة  المرور الجديد لا يمكن انو تكون نفس كلمة المرور الحالية',
             ),
           );
       }
@@ -29,10 +29,15 @@ module.exports = async (req, res, next) => {
 
     return res
       .status(400)
-      .json(FailedMessage('', 'the Current Password not Valid'));
+      .json(FailedMessage('', 'كلمة المرور الحالية غير صحيحه'));
   } catch (err) {
     return res
       .status(501)
-      .json(InternalErrorMessage('', 'Some Error happened at check password '));
+      .json(
+        InternalErrorMessage(
+          '',
+          'لقد حدث خطا اثناء اضافة البيانات الرجاء المحاولة مرة اخرى',
+        ),
+      );
   }
 };

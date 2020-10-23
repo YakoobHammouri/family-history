@@ -1,43 +1,17 @@
 const userMenuItems = () => [
-  { icon: 'fas fa-home', to: '/', text: 'Home' },
+  { icon: 'fas fa-home', to: '/', text: 'الرئيسة' },
   {
     icon: 'fas fa-address-card',
     to: '/user/profile',
-    text: 'Profile',
+    text: 'الملف الشخصي',
   },
-  { icon: 'fas fa-sign-out-alt', to: '/user/Logout', text: ' Logout' },
+  { icon: 'fas fa-sign-out-alt', to: '/user/Logout', text: 'تسجيل خروج' },
 ];
 
 const anonymousMenuItems = () => [
-  { icon: 'fas fa-home', to: '/', text: 'Home' },
-  { icon: 'fas fa-sign-in-alt', to: '/user/login', text: ' Login' },
-  { icon: 'fas fa-child', to: '/user/SignUp', text: ' signUp' },
+  { icon: 'fas fa-home', to: '/', text: 'الرئيسة' },
+  { icon: 'fas fa-sign-in-alt', to: '/user/login', text: ' تسجيل دخول' },
+  // { icon: 'fas fa-child', to: '/user/SignUp', text: ' signUp' },
 ];
 
-const adminMenuItems = () => [
-  { icon: 'fas fa-home', to: '/admin/', text: 'Dashboard' },
-  {
-    icon: 'fas fa-calendar-alt',
-    to: '/admin/Events',
-    text: 'Events',
-  },
-  {
-    icon: 'far fa-calendar-plus',
-    to: '/admin/Event/NewEvent',
-    text: ' New Event',
-  },
-
-  {
-    icon: 'fas fa-user-plus',
-    to: '/admin/user/newmember',
-    text: 'New member',
-  },
-  {
-    icon: 'fas fa-user-astronaut',
-    to: '/admin/Event/add-Member-to-event',
-    text: 'Add Member To Event',
-  },
-  { icon: 'fas fa-sign-out-alt', to: '/user/Logout', text: ' Logout' },
-];
-
-export { userMenuItems, anonymousMenuItems, adminMenuItems };
+export { userMenuItems, anonymousMenuItems };

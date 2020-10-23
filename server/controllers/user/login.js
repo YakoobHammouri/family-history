@@ -13,6 +13,7 @@ const { logInValidation } = require('../../helpers/Validation');
 const { ROLE } = require('../../helpers/Constants');
 const login = (req, res) => {
   const userData = req.body;
+  //console.log('userData : ', userData);
   const { error } = logInValidation(userData);
 
   if (error !== undefined) {
@@ -27,26 +28,29 @@ const login = (req, res) => {
 
   logindb(userData)
     .then((data) => {
+      // console.log('data : ', data);
       if (data.rowCount === 0) {
         return res
           .status(404)
           .json(
             responsemessage.FaildLoginMessage(
               null,
-              'make sure of your email or password',
+              'الرجاء التاكد من اسم المستخدم وكلمة المرور',
             ),
           );
       }
+
       bcrypt
         .compare(userData.password, data.rows[0].password)
         .then((checkPss) => {
+          console.log('checkPss : ', checkPss);
           if (!checkPss) {
             return res
               .status(403)
               .json(
                 responsemessage.FaildLoginMessage(
                   null,
-                  'make sure of your email or password',
+                  'الرجاء التاكد من اسم المستخدم وكلمة المرور',
                 ),
               );
           }
@@ -60,23 +64,25 @@ const login = (req, res) => {
             .json(
               responsemessage.successMessage(
                 { isAdmin: data.rows[0].role === ROLE.ADMIN },
-                'welcome , you are login Successfully',
+                'تم تسجيل دخول بنجاح',
               ),
             );
         })
         .catch((err) => {
+          console.log('err bcrypt : ', err);
           res
             .status(501)
             .json(
               responsemessage.InternalErrorMessage(
                 null,
-                'internal error with the server',
+                'لقد حدث خطا اثناء اضافة البيانات الرجاء المحاولة مرة اخرى',
               ),
             );
         });
     })
 
     .catch((err) => {
+      console.log('err : ', err);
       res
         .status(501)
         .json(

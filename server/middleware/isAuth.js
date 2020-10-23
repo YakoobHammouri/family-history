@@ -35,6 +35,18 @@ module.exports = (req, res, next) => {
 
     getUserById(payload.id)
       .then((result) => {
+        if (result.rowCount === 0) {
+          return res
+            .status(403)
+            .clearCookie('AuthToken')
+            .json(
+              responseMessage.UnauthorizedMessage(
+                null,
+                'please login to continue... ',
+              ),
+            );
+        }
+
         req.user = result.rows[0];
         return next();
       })

@@ -53,19 +53,11 @@ class Login extends Component {
 
   componentDidMount() {
     const AuthToken = Cookies.get('AuthToken');
-    const qstring = queryString.parse(this.props.history.location.search);
-    if (qstring.ReturnUrl) {
-      this.setState({
-        ReturnUrlText: qstring.ReturnUrl,
-        ReturnUrl: true,
-        SignupLink: `/user/Signup/?ReturnUrl=${qstring.ReturnUrl}`,
-      });
-    } else {
-      this.setState({
-        // if the user log in we will redirect to Home
-        redirect: !AuthToken ? false : true,
-      });
-    }
+    console.log('AuthToken : ', AuthToken);
+    this.setState({
+      // if the user log in we will redirect to Home
+      redirect: !AuthToken ? false : true,
+    });
   }
 
   renderAction = () => {
@@ -98,11 +90,11 @@ class Login extends Component {
     const { email, password, logindata } = this.state;
 
     if (!logindata.email) {
-      email.message = 'The Email is Required';
+      email.message = 'رجاء ادخال اسم المستخدم';
       email.isValid = false;
     } else if (!validateEmail(logindata.email)) {
       // the Email is not Valid
-      email.message = 'Please Enter Valid Email';
+      email.message = 'الرجاء تاكد من اسم المستخدم';
       email.isValid = false;
     } else {
       email.message = '';
@@ -110,10 +102,11 @@ class Login extends Component {
     }
 
     if (!logindata.password) {
-      password.message = 'The Password is Required';
+      password.message = 'رجاء ادخال كلمة المرور';
       password.isValid = false;
     } else if (logindata.password.length < password.minLength) {
-      password.message = `The Password must contains at least ${password.minLength} chart `;
+      password.message = `يجب أن تحتوي كلمة المرور على الأقل
+      ${password.minLength} حرف `;
       password.isValid = false;
     } else {
       password.message = '';
@@ -133,10 +126,8 @@ class Login extends Component {
         const data = result.data;
 
         //ReturnUrlText;
-        const url =
-          data.data.isAdmin && !this.state.ReturnUrl
-            ? '/admin'
-            : this.state.ReturnUrlText;
+        const url = '/';
+
         this.setState({ redirect: true, ReturnUrlText: url });
         //swal(data.messag);
       })
@@ -166,13 +157,13 @@ class Login extends Component {
             <Paper elevation={3} className={classes.content}>
               <Grid item xs={12}>
                 <Typography variant="h6" color="textSecondary">
-                  Login
+                  تسجيل دخول
                 </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Box mb={3}>
-                  <Typography variant="h10" color="textSecondary">
-                    Please login to continue
+                  <Typography variant="subtitle2" color="textSecondary">
+                    الرجاء تسجيل الدخول للمتابعة
                   </Typography>
                 </Box>
               </Grid>
@@ -204,7 +195,7 @@ class Login extends Component {
                         autoFocus={true}
                         margin={'dense'}
                         required={true}
-                        label="Enter your Email"
+                        label="أدخل اسم المستخدم"
                       />
                     </Grid>
                     <Grid item>
@@ -232,7 +223,7 @@ class Login extends Component {
                     <Grid item>
                       <FormControl className={classes.PasswordText}>
                         <InputLabel htmlFor="standard-adornment-password">
-                          Enter your password
+                          أدخل كلمة مرور
                         </InputLabel>
                         <Input
                           id="password"
@@ -274,51 +265,19 @@ class Login extends Component {
                       </FormControl>
                     </Grid>
                   </Grid>
-                  <Grid>
-                    <Box mt={1} align="right" display="none">
-                      <Typography
-                        variant="button"
-                        align="right"
-                        className={classes.deepOrange}
-                        gutterBottom
-                      >
-                        Forgot
-                      </Typography>
-                    </Box>
-                  </Grid>
+
                   <Grid item>
                     {this.renderAction()}
                     <Box classes={{ root: classes.root }} m={4}>
                       <Button
                         size="large"
-                        color="primary"
+                        color="secondary"
                         variant="contained"
                         type="submit"
                         className={classes.btnLogin}
                       >
-                        Login
+                        تسجيل دخول
                       </Button>
-
-                      <Grid container>
-                        <Grid item>
-                          <Typography
-                            component="span"
-                            className={classes.signupText}
-                          >
-                            If Its Your First Time
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Link to={SignupLink}>
-                            <Typography
-                              variant="span"
-                              className={classes.signupLink}
-                            >
-                              SignUp
-                            </Typography>
-                          </Link>
-                        </Grid>
-                      </Grid>
                     </Box>
                   </Grid>
                 </form>

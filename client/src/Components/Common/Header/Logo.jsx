@@ -1,6 +1,9 @@
 import React from 'react';
-import logo from './../../../assets/logo.svg';
+import logo from '../../../logo.png';
 export default ({ showlogo }) => {
-  const logoimg = showlogo ? <img alt="GSG" src={logo} /> : '';
-  return <div>{logoimg}</div>;
+ 
+  const logoimg = showlogo ? <img alt="..." src={logo} style={{width : 200 ,
+    marginTop: 15}} /> : '';
+  return <div style={{display: 'flex',
+  justifyContent:  'flex-end'}} >{logoimg}</div>;
 };

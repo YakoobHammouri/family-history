@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Grid,
@@ -50,6 +50,10 @@ export default ({ setIsLoading }) => {
   const [currentPass, setCurrentPass] = React.useState(inputObj);
   const [newPass, setNewPass] = React.useState(inputObj);
   const [reNewPass, setReNewPass] = React.useState(inputObj);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const handleChange = (prop) => (event) => {
     switch (prop) {
@@ -105,11 +109,11 @@ export default ({ setIsLoading }) => {
     const reNewPassword = { ...reNewPass };
 
     if (!currentPassword.password) {
-      currentPassword.message = 'The Current Password is Required';
+      currentPassword.message = 'الرجاء ادخال كلمة المرور الحالية';
       currentPassword.isValid = false;
       formValid = false;
     } else if (currentPassword.password.length < currentPassword.minLength) {
-      currentPassword.message = `The Current Password must contains at least ${currentPassword.minLength} chart `;
+      currentPassword.message = `كلمة المرور يجب ان تحتوي على الاقل ${currentPassword.minLength} احرف `;
       currentPassword.isValid = false;
       formValid = false;
     } else {
@@ -118,11 +122,11 @@ export default ({ setIsLoading }) => {
     }
 
     if (!newPassword.password) {
-      newPassword.message = 'The New Password is Required';
+      newPassword.message = 'الرجاء ادخال كلمة المرور الجديدة';
       newPassword.isValid = false;
       formValid = false;
     } else if (newPassword.password.length < newPassword.minLength) {
-      newPassword.message = `The New Password must contains at least ${newPassword.minLength} chart `;
+      newPassword.message = `كلمة المرور يجب ان تحتوي على الاقل ${newPassword.minLength} احرف `;
       newPassword.isValid = false;
       formValid = false;
     } else {
@@ -131,11 +135,11 @@ export default ({ setIsLoading }) => {
     }
 
     if (!reNewPassword.password) {
-      reNewPassword.message = 'The re-new Password is Required';
+      reNewPassword.message = 'الرجاء ادخال كلمة تاكيد كلمة المرور';
       reNewPassword.isValid = false;
       formValid = false;
     } else if (reNewPassword.password.length < reNewPassword.minLength) {
-      reNewPassword.message = `The re-new Password must contains at least ${reNewPassword.minLength} chart `;
+      reNewPassword.message = ` تاكيد كلمة المرور يجب ان تحتوي على الاقل  ${reNewPassword.minLength} احرف `;
       reNewPassword.isValid = false;
       formValid = false;
     } else {
@@ -149,7 +153,7 @@ export default ({ setIsLoading }) => {
       newPassword.password.trim() !== reNewPassword.password.trim()
     ) {
       newPassword.message =
-        'the New Password not match , Enter password, again please';
+        'كلمة المرور غير متطابقة الرجاء اعادةادخال كلمة المرور';
 
       newPassword.isValid = false;
       newPassword.password = '';
@@ -187,16 +191,16 @@ export default ({ setIsLoading }) => {
         const data = result.data;
         setIsLoading(false, true);
         if (result.data.status !== 200) {
-          swal('Error', result.data.messag, 'error');
+          swal('خطا', result.data.messag, 'error');
           return;
         }
         handleClearValues();
-        swal('Good job!', result.data.messag, 'success');
+        swal('تم', result.data.messag, 'success');
       })
       .catch((err) => {
         console.log('Error', { ...err });
         setIsLoading(false, true);
-        if (err.response.data) swal('Error', err.response.data.messag, 'error');
+        if (err.response.data) swal('خطا', err.response.data.messag, 'error');
       });
   };
 
@@ -211,10 +215,10 @@ export default ({ setIsLoading }) => {
           autoComplete="off"
           method="post"
         >
-          <Grid container item>
+          <Grid container item style={{ padding: 48 }}>
             <Grid item xs={12}>
               <Typography variant="h6" color="textSecondary">
-                Chnage your password
+                تغير كلمة المرور
               </Typography>
             </Grid>
 
@@ -231,7 +235,7 @@ export default ({ setIsLoading }) => {
                 error={!currentPass.isValid}
               >
                 <InputLabel htmlFor="standard-adornment-password">
-                  Password
+                  كلمة المرور الحالية
                 </InputLabel>
                 <Input
                   id="standard-adornment-password"
@@ -264,7 +268,9 @@ export default ({ setIsLoading }) => {
                 fullWidth={true}
                 error={!newPass.isValid}
               >
-                <InputLabel htmlFor="new-password">New Password</InputLabel>
+                <InputLabel htmlFor="new-password">
+                  كلمة المرور الجديد
+                </InputLabel>
                 <Input
                   id="new-password"
                   type={newPass.showPassword ? 'text' : 'password'}
@@ -297,7 +303,7 @@ export default ({ setIsLoading }) => {
                 error={!reNewPass.isValid}
               >
                 <InputLabel htmlFor="re-new-password">
-                  re-New Password
+                  تاكيد كلمة المرور
                 </InputLabel>
                 <Input
                   id="re-new-password"
@@ -336,7 +342,7 @@ export default ({ setIsLoading }) => {
                     type="submit"
                     startIcon={<Save />}
                   >
-                    Save
+                    حفظ
                   </Button>
                 </Box>
               </Grid>
@@ -349,7 +355,7 @@ export default ({ setIsLoading }) => {
                     onClick={handleClearValues}
                     startIcon={<DeleteSweep />}
                   >
-                    Clear
+                    افراغ الحقول
                   </Button>
                 </Box>
               </Grid>
