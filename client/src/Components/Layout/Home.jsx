@@ -33,7 +33,7 @@ export default function Home() {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [isEdit, SetIsEdit] = React.useState(false);
   const [editHistoryData, SetEditHistoryData] = React.useState(null);
 
@@ -60,11 +60,16 @@ export default function Home() {
   }, []);
 
   const getAllHistory = () => {
-    // setIsLoading(true);
     axios
       .get('/api/getAllHistory')
       .then((res) => {
         const resdata = res.data.data.allHistory;
+        try {
+          if (!resdata || resdata.length === 0) {
+            setIsLoading(false);
+          }
+        } catch {}
+
         setAllHistory(resdata);
       })
       .catch((err) => {
