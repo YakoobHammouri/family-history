@@ -9,5 +9,5 @@ addUser({
 addUser({
   name: 'dev',
   email: 'dev@no.com',
-  password: 'Ab.123456',
+  password: 'Ab123456',
 });
